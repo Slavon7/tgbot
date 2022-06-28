@@ -212,6 +212,7 @@ def mess(message):
 		bot.send_document(message.chat.id, doc3)
 		final_message = "Приклад заповнення мотиваційних листів"
 
+
 	elif get_message_bot == "⏱ етапи вступної кампанії":
 		markup = types.InlineKeyboardMarkup()
 		photo = open("media/vstupnakompania.png", "rb")
