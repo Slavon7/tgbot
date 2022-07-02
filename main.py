@@ -806,7 +806,7 @@ def mess(message, btn1=None):
 
 	elif get_message_bot == "⏱ етапи вступної компанії":
 		markup = types.InlineKeyboardMarkup(row_width=1)
-		btn1 = types.InlineKeyboardButton("Для вступників напісля 11 класів", callback_data='abitutient_bakalavr')
+		btn1 = types.InlineKeyboardButton("Для вступників після 11 класів", callback_data='abitutient_bakalavr')
 		btn2 = types.InlineKeyboardButton("Для вступників на 2-3, 1 скорочений курс після коледжу",
 										  callback_data='abiturient_uskorenik')
 		markup.add(btn1, btn2)
