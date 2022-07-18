@@ -11,15 +11,16 @@ def start(message):
 	btn2 = types.KeyboardButton('📈 Можливості для студентів')
 	btn3 = types.KeyboardButton('📋 Вступнику')
 	btn4 = types.KeyboardButton('🎉 День відкритих дверей')
-	btn5 = types.KeyboardButton('☎ Зв`язатися із кафедрою')
+	btn5 = types.KeyboardButton('📑 Квота-2')
+	btn6 = types.KeyboardButton('☎ Зв`язатися із кафедрою')
 
-	markup.add(btn1, btn2, btn3, btn4, btn5)
+	markup.add(btn1, btn2, btn3, btn4, btn5,btn6)
 
-	p = open("media/startpic.png", "rb")
+	p = open("media/startpic.jpg", "rb")
 	send_mess = f"<b>Вітаю {message.from_user.first_name} </b>!\nНа кафедрі КІП\nКуди підем?"
 	bot.send_photo(message.chat.id, p, caption=send_mess, reply_markup=markup, parse_mode="HTML")
 
-@bot.callback_query_handler(func=lambda call: call.data in ['computers_system', 'engineer_mob', 'innovation_campus','computers_merezi','system_programming','spec_comp'])
+@bot.callback_query_handler(func=lambda call: call.data in ['computers_system', 'engineer_mob', 'innovation_campus','computers_merezi','system_programming','spec_comp','application-form'])
 def callback_inline(call):
 	try:
 		if call.message:
@@ -217,6 +218,17 @@ def callback_inline(call):
 													  '•  Проєктування комп`ютерних діагностичних систем\n'
 													  '•  Спеціалізовані комп`ютерні системи', reply_markup=markup,parse_mode="HTML")
 
+			elif call.data == 'application-form':
+
+
+				doc1 = open("media/Форма_заяви_на_1_курс_ХПІ - бланк.pdf", "rb")
+				bot.send_document(call.message.chat.id, doc1)
+				doc2 = open("media/Заява_на_ ІУС_НТУ_ХПІ.docx", "rb")
+				bot.send_document(call.message.chat.id, doc2)
+				doc3 = open("media/Приклад_заяви_на_1_курс_ХПІ_на_друкованій_формі.pdf", "rb")
+				bot.send_document(call.message.chat.id, doc3)
+				photo1 = open("media/ЗаяваУснСпівБес.jpg", "rb")
+				bot.send_photo(call.message.chat.id, photo1)
 
 	except Exception as e:
 		print(repr(e))
@@ -291,10 +303,11 @@ def mess(message, btn1=None):
 		btn2 = types.KeyboardButton('📈 Можливості для студентів')
 		btn3 = types.KeyboardButton('📋 Вступнику')
 		btn4 = types.KeyboardButton('🎉 День відкритих дверей')
+		btn5 = types.KeyboardButton('📑 Квота-2')
 		btn6 = types.KeyboardButton('☎ Контакти')
 
-		markup.add(btn1, btn2, btn3, btn4, btn6)
-		photo = open("media/startpic.png","rb")
+		markup.add(btn1, btn2, btn3, btn4,btn5, btn6)
+		photo = open("media/startpic.jpg","rb")
 		bot.send_photo(message.chat.id, photo)
 
 		final_message = "<b>❗️ Шановні старшокласники та абітурієнти❗️</b>⠀" \
@@ -642,6 +655,24 @@ def mess(message, btn1=None):
 		final_message = "Кількість  місць"
 
 
+	elif get_message_bot == "📑 квота-2":
+		markup = types.InlineKeyboardMarkup(row_width=1)
+		btn1 = types.InlineKeyboardButton("Форми заяв", callback_data='application-form')
+
+		markup.add(btn1)
+		final_message = "<b>Щоб подати заяву на вступ за квотою-2, треба</b>\n\n" \
+						"1. Скачати, роздрукувати та заповнити заяву на вступ.\n " \
+						"2. Сфотографувати її і за можливістю завірити електронним " \
+						"цифровим підписом.  \n3. Сфотографувати або відсканувати документи " \
+						"(паспорт/свідоцтво про народження, реєстрацію місця проживання, ідентифікаційний " \
+						"номер платника податків, документ про середню освіту та додаток до нього), прикріпити  " \
+						"фотокартку розміром не більш ніж 1мб.  \n4. Якщо ви бажаєте замість НМТ пройти індивідуальну " \
+						"усну співбесіду - роздрукувати, заповнити та сфотографувати відповідну заяву.  \n5. Прикріпити " \
+						"усе зазначене вище + мотиваційний лист до електронного листа, в якості теми вказати власні ПІБ.  " \
+						"\n6. Відправити лист на пошту vstup.cs@khpi.edu.ua та бути на зв'язку - вам повідомлять про дату " \
+						"та час індивідуальної усної співбесіди.  Також ви можете прийти з зазначеними вище документами " \
+						"до нашої стаціонарної приймальної комісії за адресою вул. Кирпичова, 2, корпус У-2."
+
 	elif get_message_bot == "🎮 сучaсне програмування, мобільні пристрої та комп’ютерні ігри":
 		markup = types.InlineKeyboardMarkup(row_width=1)
 		btn1 = types.InlineKeyboardButton("Комп’ютерні системи та мережі", callback_data='computers_merezi')
@@ -939,8 +970,9 @@ def mess(message, btn1=None):
 		btn2 = types.KeyboardButton('📈 Можливості для студентів')
 		btn3 = types.KeyboardButton('📋 Вступнику')
 		btn4 = types.KeyboardButton('🎉 День відкритих дверей')
+		btn5 = types.KeyboardButton('📑 Квота-2')
 		btn6 = types.KeyboardButton('☎ Контакти')
-		markup.add(btn1, btn2, btn3, btn4, btn6)
+		markup.add(btn1, btn2, btn3, btn4, btn5, btn6)
 
 		final_message = "Так, так, так\nСтій, краще натисни на кнопку"
 	bot.send_message(message.chat.id, final_message, parse_mode='html', reply_markup=markup)
