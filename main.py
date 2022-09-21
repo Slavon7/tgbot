@@ -619,11 +619,12 @@ def mess(message, btn1=None):
 		btn3 = types.KeyboardButton('🧮 Poзрахунок конкурсного балу') # 🧮 РOзрахунок конкурсного балу - o = ENG
 		btn4 = types.KeyboardButton('🔎 Кiлькість місць') # i - eng
 		btn5 = types.KeyboardButton('📄 Мoтиваційний лист') # 📄 МOтиваційні листи - o = ENG
-		btn6 = types.KeyboardButton("⬅ Назад") # ⬅ НазAд = eng
-		btn7 = types.KeyboardButton("⬅ На початок")
+		btn6 = types.KeyboardButton('✉ Зразок заяви (друга вища)')  # 📄
+		btn7 = types.KeyboardButton("⬅ Назад") # ⬅ НазAд = eng
+		btn8 = types.KeyboardButton("⬅ На початок")
 
 
-		markup.add(btn1, btn2, btn3, btn4, btn5, btn6, btn7)
+		markup.add(btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8)
 
 		final_message = "<b>Кафедра веде підготовку магістрів за двома освітніми програмами (див. конкурсні пропозиції):</b>\n\n" \
 						"🎮 Сучасне програмування, мобільні пристрої та комп’ютерні ігри\n" \
@@ -760,6 +761,12 @@ def mess(message, btn1=None):
 		photo = open("media/zhilin_ussr@ukr.net.png", "rb")
 		bot.send_photo(message.chat.id, photo)
 		final_message = "<b>📄 Мoтиваційний лист</b>"
+
+	elif get_message_bot == "✉ зразок заяви (друга вища)":  # ✉ зразок заяви(друга вища)
+		markup = types.InlineKeyboardMarkup()
+		doc = open("media/zayava5kurs.doc", "rb")
+		bot.send_document(message.chat.id, doc)
+		final_message = "<b>✉ Зразок заяви (друга вища)</b>"
 
 	elif get_message_bot == "👑 елітарна школа":
 		markup = types.InlineKeyboardMarkup()
