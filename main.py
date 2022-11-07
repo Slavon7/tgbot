@@ -6,19 +6,35 @@ bot = telebot.TeleBot(BOT_TOKEN, parse_mode="HTML")
 
 @bot.message_handler(commands=['start'])
 def start(message):
+
 	markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=2)
-	btn1 = types.KeyboardButton('🌟 Кафедра КІП')
-	btn2 = types.KeyboardButton('📈 Можливості для студентів')
-	btn3 = types.KeyboardButton('📋 Вступнику')
-	btn4 = types.KeyboardButton('🎉 День відкритих дверей')
-	btn5 = types.KeyboardButton('📑 Квота-2')
-	btn6 = types.KeyboardButton('☎ Зв`язатися із кафедрою')
+	btn1 = types.KeyboardButton('🇺🇦 Ukrainian')
+	btn2 = types.KeyboardButton('🇺🇸 English')
 
-	markup.add(btn1, btn2, btn3, btn4, btn5,btn6)
-
+	markup.add(btn1, btn2)
 	p = open("media/startpic.jpg", "rb")
 	send_mess = f"<b>Вітаю {message.from_user.first_name} </b>!\nНа кафедрі КІП\nКуди підем?"
 	bot.send_photo(message.chat.id, p, caption=send_mess, reply_markup=markup, parse_mode="HTML")
+
+
+
+@bot.message_handler(commands=['help'])
+def help(message):
+	markup = types.InlineKeyboardMarkup()
+
+	bot.send_message(message.chat.id, "Change the language /language \n"
+									  "Restart the bot /start", reply_markup=markup, parse_mode="HTML")
+
+@bot.message_handler(commands=['language'])
+def language(message):
+		markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=2)
+
+		btn1 = types.KeyboardButton('🇺🇦 Ukrainian')
+		btn2 = types.KeyboardButton('🇺🇸 English')
+
+		markup.add(btn1, btn2)
+		bot.send_message(message.chat.id, "Choose a language", reply_markup=markup, parse_mode="HTML")
+
 
 @bot.callback_query_handler(func=lambda call: call.data in ['computers_system', 'engineer_mob', 'innovation_campus','computers_merezi','system_programming','spec_comp','application-form'])
 def callback_inline(call):
@@ -297,16 +313,48 @@ def callback_inline(call):
 def mess(message, btn1=None):
 	get_message_bot = message.text.strip().lower()
 
-	if get_message_bot == "⬅ на початок":
+	if get_message_bot == "🇺🇸 change language":
+		markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=2)
+		btn1 = types.KeyboardButton('🇺🇦 Ukrainian')
+		btn2 = types.KeyboardButton('🇺🇸 English')
+
+		markup.add(btn1, btn2)
+
+		final_message = "Choose language"
+
+	elif get_message_bot == "🇺🇦 change language":
+		markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=2)
+		btn1 = types.KeyboardButton('🇺🇦 Ukrainian')
+		btn2 = types.KeyboardButton('🇺🇸 English')
+
+		markup.add(btn1, btn2)
+
+		final_message = "Choose language"
+
+	elif get_message_bot == "🇺🇦 ukrainian":
 		markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=2)
 		btn1 = types.KeyboardButton('🌟 Кафедра КІП')
 		btn2 = types.KeyboardButton('📈 Можливості для студентів')
 		btn3 = types.KeyboardButton('📋 Вступнику')
 		btn4 = types.KeyboardButton('🎉 День відкритих дверей')
-		btn5 = types.KeyboardButton('📑 Квота-2')
-		btn6 = types.KeyboardButton('☎ Контакти')
+		btn5 = types.KeyboardButton('☎ Зв`язатися із кафедрою')
+		btn6 = types.KeyboardButton('🇺🇸 Change language')
 
-		markup.add(btn1, btn2, btn3, btn4,btn5, btn6)
+		markup.add(btn1, btn2, btn3, btn4, btn5, btn6)
+
+		final_message = "Обрана мова: Українська"
+
+
+	elif get_message_bot == "⬅ на початок":
+		markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=2)
+		btn1 = types.KeyboardButton('🌟 Кафедра КІП')
+		btn2 = types.KeyboardButton('📈 Можливості для студентів')
+		btn3 = types.KeyboardButton('📋 Вступнику')
+		btn4 = types.KeyboardButton('🎉 День відкритих дверей')
+		btn5 = types.KeyboardButton('☎ Контакти')
+		btn6 = types.KeyboardButton('🇺🇸 Change language')
+
+		markup.add(btn1, btn2, btn3, btn4,btn5,btn6)
 		photo = open("media/startpic.jpg","rb")
 		bot.send_photo(message.chat.id, photo)
 
@@ -318,13 +366,12 @@ def mess(message, btn1=None):
 		markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=2)
 		btn1 = types.KeyboardButton('👩‍💼 Бакалаврат')
 		btn2 = types.KeyboardButton('🎓 Магістратура')
-		btn3 = types.KeyboardButton('👑 Елітарна школа')
-		btn4 = types.KeyboardButton('📝 Корисні посилання')
-		btn5 = types.KeyboardButton("⬅ На початок")
+		btn3 = types.KeyboardButton('📝 Корисні посилання')
+		btn4 = types.KeyboardButton("⬅ На початок")
 
-		markup.add(btn1, btn2, btn3, btn4, btn5)
+		markup.add(btn1, btn2, btn3, btn4)
 
-		photo = open("media/dipplomniroboti.png", "rb")
+		photo = open("../../Desktop/telegram_bot/media/dipplomniroboti.png", "rb")
 		bot.send_photo(message.chat.id, photo)
 
 		final_message = "<b>Комп’ютерна інженерія  (Computer Engineering)</b> – це напрям, який об’єднує в собі частини електротехніки, комп’ютерних наук та програмної інженерії, що необхідні для проектування та розроблення комп’ютерних систем. "
@@ -417,7 +464,7 @@ def mess(message, btn1=None):
 						" у програмах, які проводять наші партнери." \
 						"\n\nНаші випускники з" \
 						" успіхом працюють системними програмістами, провідними" \
-						" програмістами, 1С-програмістами, системними аналітиками," \
+						" програмістами, системними аналітиками," \
 						" системними і мережевими адміністраторами, розробниками" \
 						" Web-додатків та Web-дизайнерами, адміністраторами баз даних," \
 						" розробниками складних радіотехнічних пристроїв, а також" \
@@ -431,9 +478,9 @@ def mess(message, btn1=None):
 
 	elif get_message_bot == "👩‍🏫 викладачі":
 		markup = types.InlineKeyboardMarkup()
-		markup.add(types.InlineKeyboardButton("👩‍🏫 Викладачі тут:", url="https://web.kpi.kharkov.ua/cep/vikladachi/"))
+		markup.add(types.InlineKeyboardButton("👩‍🏫 Резюме викладачів", url="https://web.kpi.kharkov.ua/cep/vikladachi/"))
 
-		photo = open("media/vikladachi.png", "rb")
+		photo = open("media/teachers.png", "rb")
 		bot.send_photo(message.chat.id, photo)
 		final_message = "<b>✏ На кафедрі <b>«Комп’ютерна інженерія та програмування»</b> працюють 12 докторів наук " \
 						"та 23 кандидата наук (PhD).\n" \
@@ -473,7 +520,7 @@ def mess(message, btn1=None):
 		bot.send_photo(message.chat.id, photo)
 
 		final_message = "<b>Комп'ютерні лабораторії, cтейкхолдери та багато </b><a href='https://www.youtube.com/watch?v=GvHnXh_EbHA'><b>іншого</b></a>" \
-						"<a href='https://youtu.be/7pgKzwBN9-o'><b>\nВідео 3D аудиторій</b></a>" \
+						"<a href='https://www.youtube.com/watch?v=ZzA20qnbNiY&list=PLD1uBTwvx9NgsjFS2sS774iUW3hDrEUeX&index=1'><b>\nВідео 3D аудиторій</b></a>" \
 
 
 	elif get_message_bot == "👨‍🎓 наші випускники":
@@ -498,7 +545,7 @@ def mess(message, btn1=None):
 						"кафедри мають можливість навчатися та розробляти реальні проекти, " \
 						"взявши участь у програмі \nІнноваційний кампус НТУ «ХПІ». \nЦе — перший проект в Україні на базі державного вишу, " \
 						"який об’єднає IT-навчання, школу підприємництва та коворкінг." \
-						"<a href='http://campus.kpi.kharkov.ua/'>Подробиці тут</a> "
+						"<a href='https://www.youtube.com/watch?v=PYb6F9G-7EM&t=12s'>Про Кампус</a> "
 
 	elif get_message_bot == "📈 можливості для студентів":
 		markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=2)
@@ -550,13 +597,12 @@ def mess(message, btn1=None):
 		markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=2)
 		btn1 = types.KeyboardButton('👩‍💼 Бакалаврат')
 		btn2 = types.KeyboardButton('🎓 Магістратура')
-		btn3 = types.KeyboardButton('👑 Елітарна школа')
-		btn4 = types.KeyboardButton('📝 Корисні посилання')
-		btn5 = types.KeyboardButton("⬅ На початок")
+		btn3 = types.KeyboardButton('📝 Корисні посилання')
+		btn4 = types.KeyboardButton("⬅ На початок")
 
-		markup.add(btn1, btn2, btn3, btn4, btn5)
+		markup.add(btn1, btn2, btn3, btn4)
 
-		photo = open("media/dipplomniroboti.png", "rb")
+		photo = open("../../Desktop/telegram_bot/media/dipplomniroboti.png", "rb")
 		bot.send_photo(message.chat.id, photo)
 
 		final_message = "<b>Комп’ютерна інженерія  (Computer Engineering)</b> – це напрям, який об’єднує в собі частини електротехніки, комп’ютерних наук та програмної інженерії, що необхідні для проектування та розроблення комп’ютерних систем. "
@@ -613,27 +659,18 @@ def mess(message, btn1=None):
 						"\n\n<b>📞 Телефони для зв’язку:</b>\n +380979673271, +380675740497."
 
 	elif get_message_bot == "🎓 магістратура":
-		markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=2)
-		btn1 = types.KeyboardButton('📖 Кoнкурсні пропозиції') # 📖 КOнкурсні пропозиції - o = ENG
-		btn2 = types.KeyboardButton('⏱ Етапи вступнoї компанії') # ⏱ Етапи вступнOї компанії - o = ENG
-		btn3 = types.KeyboardButton('🧮 Poзрахунок конкурсного балу') # 🧮 РOзрахунок конкурсного балу - o = ENG
-		btn4 = types.KeyboardButton('🔎 Кiлькість місць') # i - eng
-		btn5 = types.KeyboardButton('📄 Мoтиваційний лист') # 📄 МOтиваційні листи - o = ENG
-		btn6 = types.KeyboardButton('✉ Зразок заяви (друга вища)')  # 📄
-		btn7 = types.KeyboardButton("⬅ Назад") # ⬅ НазAд = eng
-		btn8 = types.KeyboardButton("⬅ На початок")
+		markup = types.ReplyKeyboardMarkup()
+		btn1 = types.KeyboardButton(
+			'🎮 СУЧAСНЕ ПРОГРАМУВАННЯ, МОБІЛЬНІ ПРИСТРОЇ ТА КОМП’ЮТЕРНІ ІГРИ')  # 🎮 СУЧaСНЕ ПРОГРАМУВАННЯ, МОБІЛЬНІ ПРИСТРОЇ ТА КОМП’ЮТЕРНІ ІГРИ «ІННОВАЦІЙНИЙ КАМПУС» - a = eng
+		btn2 = types.KeyboardButton(
+			'🧩 ПРИКЛAДНА КОМП’ЮТЕРНА ІНЖЕНЕРІЯ')  # 🧩 ПРИКЛaДНА КОМП’ЮТЕРНА ІНЖЕНЕРІЯ - a = eng
+		btn3 = types.KeyboardButton("⬅ Назад")
+		btn4 = types.KeyboardButton("⬅ На початок")
 
+		markup.add(btn1, btn2, row_width=1)
+		markup.add(btn3, btn4, row_width=2)
 
-		markup.add(btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8)
-
-		final_message = "<b>Кафедра веде підготовку магістрів за двома освітніми програмами (див. конкурсні пропозиції):</b>\n\n" \
-						"🎮 Сучасне програмування, мобільні пристрої та комп’ютерні ігри\n" \
-						"🧩 Прикладна комп’ютерна інженерія\n\n" \
-						"<b>Наші студенти</b> – найкращі учасники науко-дослідної роботи та переможці " \
-						"конкурсів стартапів освітньо-стипендіальних програм. \n\n" \
-						"<a href='http://vstup.kpi.kharkov.ua/wp-content/uploads/2022/05/kn-vstup-na-osnovi-bakalavra-spetsialista-magistra-dorozhna-karta-vstupnoi-kampanii-2022-roku-v-ntu-khpi.pdf'>🎯  Інструкція по вступу до магістратури</a>\n\n " \
-						"<a href='http://vstup.kpi.kharkov.ua/korisni-posilannya-dlya-abituriientiv/litsenziinyi-obsiag-ta-vartist-navchannia/'>🎯  Ліцензійний обсяг та вартість навчання</a>" \
-						"<a href='http://vstup.kpi.kharkov.ua/admission/admission_rules/'>🎯  Правила прийому до НТУ “ХПІ”</a>"
+		final_message = "Магістратура"
 
 	elif get_message_bot == "📖 кoнкурсні пропозиції":
 		markup = types.ReplyKeyboardMarkup()
@@ -654,11 +691,6 @@ def mess(message, btn1=None):
 		bot.send_document(message.chat.id, doc)
 		doc.close()
 		final_message = "Кількість  місць"
-
-
-	elif get_message_bot == "📑 квота-2":
-		markup = types.InlineKeyboardMarkup(row_width=1)
-		btn1 = types.InlineKeyboardButton("Форми заяв", callback_data='application-form')
 
 		markup.add(btn1)
 		final_message = "<b>Щоб подати заяву на вступ за квотою-2, треба</b>\n\n" \
@@ -822,27 +854,20 @@ def mess(message, btn1=None):
 						"Більш детально за посиланням: <a href='http://vstup.kpi.kharkov.ua/edprogram/suchasne-prohramuvannia-mobilni-prystroi-ta-komp-iuterni-ihry-innovatsiinyi-kampus-magistr/ '>Клац</a>"
 
 	elif get_message_bot == "👩‍💼 бакалаврат":
-		markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=2)
+		markup = types.ReplyKeyboardMarkup()
+		btn1 = types.KeyboardButton(
+			'🎮 СУЧАСНЕ ПРОГРАМУВАННЯ, МОБІЛЬНІ ПРИСТРОЇ ТА КОМП’ЮТЕРНІ ІГРИ (ІННОВАЦІЙНИЙ КАМПУС)')
+		btn2 = types.KeyboardButton('🧩 ПРИКЛАДНА КОМП’ЮТЕРНА ІНЖЕНЕРІЯ')
+		btn3 = types.KeyboardButton("⬅ Назад")
+		btn4 = types.KeyboardButton("⬅ На початок")
 
-		btn1 = types.KeyboardButton('📖 Конкурсні пропозиції')
-		btn2 = types.KeyboardButton('⏱ Етапи вступної компанії')
-		btn3 = types.KeyboardButton('🧮 Розрахунок конкурсного бaлу')
-		btn4 = types.KeyboardButton('🔎 Кількість місць')
-		btn5 = types.KeyboardButton('📄 Мотиваційний лист')
-		btn6 = types.KeyboardButton("⬅ Назад")
-		btn7 = types.KeyboardButton("⬅ На початок")
-
-		markup.add(btn1, btn2, btn3, btn4, btn5, btn6, btn7)
+		markup.add(btn1, btn2, row_width=1)
+		markup.add(btn3, btn4, row_width=2)
 
 		final_message = "<b>Кафедра веде підготовку магістрів за двома освітніми програмами (див. конкурсні пропозиції):</b>\n\n" \
 						"🎮 Сучасне програмування, мобільні пристрої та комп’ютерні ігри (Інноваційний кампус)\n" \
 						"🧩 Прикладна комп’ютерна інженерія\n\n" \
-						"<b>Наші студенти</b> – найкращі учасники науко-дослідної роботи та переможці конкурсів стартапів освітньо-стипендіальних програм.\n\n" \
-						"<a href='http://vstup.kpi.kharkov.ua/wp-content/uploads/2022/05/kn-vstup-na-osnovi-pzso-dorozhna-karta-vstupnoi-kampanii-2022-roku-v-ntu-khpi.pdf'>📫  Інструкція по вступу на 1 курс бакалаврату на основі ПЗСО (після 11 класів)\n\n</a>" \
-						"<a href='http://vstup.kpi.kharkov.ua/wp-content/uploads/2022/05/kn-vstup-na-osnovi-ms-mb-fmb-dorozhna-karta-vstupnoi-kampanii-2022-roku-v-ntu-khpi.pdf'>📫  Інструкція по вступу на 2-3 та 1 скорочений курс бакалаврату на основі МС, МБ, ФМБ (після коледжу)\n\n</a>" \
-						"<a href='http://vstup.kpi.kharkov.ua/korisni-posilannya-dlya-abituriientiv/litsenziinyi-obsiag-ta-vartist-navchannia/'>📫  Вартість навчання та кількість ліцензійних місць\n\n</a>" \
-						"<a href='http://vstup.kpi.kharkov.ua/maksymalni-obsiagy-derzhavnogo-zamovlennia-na-1-kurs-bakalavratu/'>📫  Максимальні обсяги державного замовлення\n\n</a>" \
-						"<a href='http://vstup.kpi.kharkov.ua/admission/admission_rules/'>📫  Правила прийому до НТУ “ХПІ”\n\n</a>"
+						"<b>Наші студенти</b> – найкращі учасники науко-дослідної роботи та переможці конкурсів стартапів освітньо-стипендіальних програм."
 
 
 	elif get_message_bot == "⏱ етапи вступної компанії":
@@ -964,6 +989,175 @@ def mess(message, btn1=None):
 						"💻  Інтерфейс користувача\n" \
 						"💻  Створення та обробка контенту\n\n" \
 
+	elif get_message_bot == "🇺🇸 english":
+		markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=2)
+		btn1 = types.KeyboardButton('🌟 KIP Department')
+		btn2 = types.KeyboardButton('📈 Opportunities for students')
+		btn3 = types.KeyboardButton('📋 To the entrant')
+		btn4 = types.KeyboardButton('☎ Contact the department')
+		btn5 = types.KeyboardButton('🇺🇦 Change language')
+
+		markup.add(btn1, btn2, btn3, btn4, btn5)
+
+		photo = open("media/startpic_eng.jpg", "rb")
+		bot.send_photo(message.chat.id, photo)
+		final_message = "❗️ Dear Future Students ❗ \n\n️⠀" \
+						"The Department of Computer Engineering and " \
+						"Programming (CEP) of the National Technical " \
+						"University 'Kharkiv Polytechnic Institute' (NTU KhPI 🏛) " \
+						"trains specialists of the 12th field of knowledge " \
+						"'Information Technology', the specialty 123 'Computer Engineering' "
+
+	elif get_message_bot == "🌟 kip department":
+		markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=2)
+		btn1 = types.KeyboardButton('👩‍🏫 Teachers')
+		btn2 = types.KeyboardButton('💫 Competitive advantages of studying at the department')
+		btn3 = types.KeyboardButton('📖 History of the department')
+		btn4 = types.KeyboardButton('👨‍💻 Auditoriums of the department')
+		btn5 = types.KeyboardButton('👨‍🎓 Our graduates')
+		btn6 = types.KeyboardButton('🖥 Innovative campus')
+		btn7 = types.KeyboardButton("⬅ To the beginning")
+
+		markup.add(btn1, btn2, btn3, btn4, btn5, btn6, btn7)
+
+		final_message = "<b>The KIP department trains specialists in the region</b>\n " \
+						"\n💻 Computer systems and networks " \
+						"\n💻 Computer software and hardware" \
+						"\n💻 Programming of mobile devices and computer games." \
+						"\n💻 Web design and Internet programming" \
+						"\n\nThe department conducts training according to educational and professional levels " \
+						"Bachelor's and Master's degree in specialty 123 'Computer Engineering'." \
+						"\n\nOur department cooperates with the leading IT companies of Kharkiv. " \
+						"This allows students of the department to undergo internships and participate" \
+						" in programs conducted by our partners." \
+						"\n\nOur graduates from" \
+						"successfully work as system programmers, leading" \
+						" by programmers, 1C programmers, system analysts," \
+						"system and network administrators, developers" \
+						" Web-applications and Web-designers, database administrators," \
+						" developers of complex radio technical devices, as well as" \
+						"microcontroller-based devices by information developers" \
+						"systems, testers, communication specialists, managers" \
+						" IT departments and computer security departments, as well as" \
+						"occupy other positions that require a high-class education" \
+						" in the field of information technologies. More details on the website of the department:" \
+						" <a href='https://www.youtube.com/watch?v=GvHnXh_EbHA'>here</a>"
+
+	elif get_message_bot == "📈 opportunities for students":
+		markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=2)
+		btn1 = types.KeyboardButton('👩‍💻 Dual educationа')
+		btn2 = types.KeyboardButton('💵 Employment opportunities')
+		btn3 = types.KeyboardButton('👩‍💻 Developments of our students')
+		btn4 = types.KeyboardButton("⬅ To the beginning")
+
+		markup.add(btn1, btn2, btn3, btn4)
+
+		photo = open("media/nashipartner.png", "rb")
+		bot.send_photo(message.chat.id, photo)
+
+		final_message = "<b>More than </b> 8️⃣0️⃣0️⃣ students study annually at the department," \
+						"which creates an ecosystem 🏞 for <b>startups 🚀, formation of circles," \
+						"groups with different interests</b> 🗺 etc. Annually," \
+						"the best students <b>represent the department</b> in professional Olympiads in <b>system programming ⚙ ," \
+						"robotics 🤖, Linux administration 🐧, " \
+						"cyber security</b> 🛡, competitions <b>mobile applications 📱, " \
+						"web applications</b> 🌐 and take the prize places 🏆🥇🥈🥉!"
+
+	elif get_message_bot == "📋 to the entrant":
+		markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=2)
+		btn1 = types.KeyboardButton('👩‍💼 Bachelor`s degree')
+		btn2 = types.KeyboardButton('🎓 Magistracy')
+		btn3 = types.KeyboardButton('📝 Useful links')
+		btn4 = types.KeyboardButton("⬅ To the beginning")
+
+		markup.add(btn1, btn2, btn3, btn4)
+
+		photo = open("../../Desktop/telegram_bot/media/dipplomniroboti.png", "rb")
+		bot.send_photo(message.chat.id, photo)
+
+		final_message = "<b>Комп’ютерна інженерія  (Computer Engineering)</b> – це напрям, який об’єднує в собі частини електротехніки, комп’ютерних наук та програмної інженерії, що необхідні для проектування та розроблення комп’ютерних систем. "
+
+	elif get_message_bot == "☎ contact the department":
+		markup = types.InlineKeyboardMarkup()
+		final_message = "<b>Head of the department</b>\n\nZakovorotny Oleksandr Yuriyovych" \
+						"\nContact phone: +38 (097) 967-32-71<b>\n\nOur location</b>" \
+						"\n\nKirpychova Street, 2 (formerly Frunze), Kharkiv, Kharkiv region, " \
+						"61002 evening building, k. 309, t. 70-76-165\n<b>Pushkinskaya Metro</b>\n\n" \
+						"<b>Any questions left?</b>\n" \
+						"Ask them here : https://t.me/CEP_123CE"
+
+	elif get_message_bot == "👩‍🏫 teachers":
+		markup = types.InlineKeyboardMarkup()
+		markup.add(types.InlineKeyboardButton("👩‍🏫 Teacher CVs", url="https://web.kpi.kharkov.ua/cep/vikladachi/"))
+
+		photo = open("media/teachers.png", "rb")
+		bot.send_photo(message.chat.id, photo)
+		final_message = "<b>✏️ The Department of Computer Engineering and Programming has 11 Doctors of Science and 23 PhDs.</b>\n" \
+						"<b>🧑‍🏫 Our teachers have vast experience in work and teaching.</b>"
+
+
+	elif get_message_bot == "📖 history of the department":
+		markup = types.InlineKeyboardMarkup()
+		photo = open("media/kolaz.png", "rb")
+		bot.send_photo(message.chat.id, photo)
+		markup.add(types.InlineKeyboardButton("More information", url="http://web.kpi.kharkov.ua/cep/istoriya-rozvytku/"))
+		final_message = "📚 Our department was organized in 1961 as the Department of Mathematical and Calculating Instruments and Devices."\
+						"📺Then it was called 'Electronic computers', after which it found its third name - 'Computer Engineering and Programming'"
+
+	elif get_message_bot == "👨‍💻 auditoriums of the department":
+		markup = types.InlineKeyboardMarkup()
+		photo = open("media/photo_lab.png", "rb")
+		bot.send_photo(message.chat.id, photo)
+
+		final_message = "<b>Computer labs, stakeholders and more </b><a href='https://www.youtube.com/watch?v=GvHnXh_EbHA'><b>іншого</b></a>" \
+						"<a href='https://www.youtube.com/watch?v=ZzA20qnbNiY&list=PLD1uBTwvx9NgsjFS2sS774iUW3hDrEUeX&index=1'><b>\nVideo of 3D classrooms</b></a>"
+
+	elif get_message_bot == "👨‍🎓 our graduates":
+		markup = types.InlineKeyboardMarkup()
+		photo = open("media/GRADUATES_eng.png", "rb")
+		bot.send_photo(message.chat.id, photo)
+
+		final_message = "<b>Graduates of the department</b> work in <b>Ukraine</b> 🇺🇦 and <b>outside its borders</b> 🌎 in positions:" \
+						"\n\n🐉<b> software architects</b> (Software Architect);" \
+						"\n🥷 <b>software developers</b> (Middle, Senior Developer);" \
+						"\n🧑‍💻<b> heads of IT departments</b>;" \
+						"\n🦾 <b>computer network administrators</b> (Network administrator);" \
+						"\n👾 <b>testers</b>(QA Engineer);" \
+						"\n👩‍💼<b> business analysts</b> (Business Analyst);" \
+						"\n👨‍💼 <b>project managers</b> (Project Manager);"
+
+	elif get_message_bot == "🖥 innovative campus":
+
+		markup = types.InlineKeyboardMarkup()
+		final_message = "<b>Feedback about the campus of a 4th year student of the department of CEP\n " \
+						"AyubaAyoub El-Haddadi</b> (КН-919i.е)\n My stay on campus was a good experience for me, I have gained and boosted my skills in this field, " \
+						"introduced and learned many useful things that I am working with currently." \
+						"We had a full stack development training, developed many projects with (HTML, CSS, JS, React and PHP Laravel)." \
+						" Projects that i have on my personal portfolio and GitHub (Uevent, Chronos, ...)\n\n" \
+						"Portfolio - <a href='https://aelhaddadi.com'>https://aelhaddadi.com</a> \n" \
+						"Github - <a href='https://github.com/Elh-Ayoub'>https://github.com/Elh-Ayoub</a> "
+
+	elif get_message_bot == "⬅ to the beginning":
+		markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=2)
+		btn1 = types.KeyboardButton('🌟 KIP Department')
+		btn2 = types.KeyboardButton('📈 Opportunities for students')
+		btn3 = types.KeyboardButton('📋 To the entrant')
+		btn4 = types.KeyboardButton('☎ Contact the department')
+		btn5 = types.KeyboardButton('🇺🇦 Change language')
+
+		markup.add(btn1, btn2, btn3, btn4, btn5)
+
+		photo = open("media/startpic_eng.jpg", "rb")
+		bot.send_photo(message.chat.id, photo)
+		final_message = "❗️ Dear Future Students ❗ \n\n️⠀" \
+						"The Department of Computer Engineering and " \
+						"Programming (CEP) of the National Technical " \
+						"University 'Kharkiv Polytechnic Institute' (NTU KhPI 🏛) " \
+						"trains specialists of the 12th field of knowledge " \
+						"'Information Technology', the specialty 123 'Computer Engineering' "
+
+
+
 	elif get_message_bot == "слава україні":
 		markup = types.InlineKeyboardMarkup()
 		final_message = "Героям Слава 🇺🇦🇺🇦🇺🇦"
@@ -977,8 +1171,8 @@ def mess(message, btn1=None):
 		btn2 = types.KeyboardButton('📈 Можливості для студентів')
 		btn3 = types.KeyboardButton('📋 Вступнику')
 		btn4 = types.KeyboardButton('🎉 День відкритих дверей')
-		btn5 = types.KeyboardButton('📑 Квота-2')
-		btn6 = types.KeyboardButton('☎ Контакти')
+		btn5 = types.KeyboardButton('☎ Контакти')
+		btn6 = types.KeyboardButton('🇺🇸 Change language')
 		markup.add(btn1, btn2, btn3, btn4, btn5, btn6)
 
 		final_message = "Так, так, так\nСтій, краще натисни на кнопку"
