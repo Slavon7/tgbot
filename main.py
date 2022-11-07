@@ -659,6 +659,7 @@ def mess(message, btn1=None):
 						"\n\n<b>📞 Телефони для зв’язку:</b>\n +380979673271, +380675740497."
 
 	elif get_message_bot == "🎓 магістратура":
+
 		markup = types.ReplyKeyboardMarkup()
 		btn1 = types.KeyboardButton(
 			'🎮 СУЧAСНЕ ПРОГРАМУВАННЯ, МОБІЛЬНІ ПРИСТРОЇ ТА КОМП’ЮТЕРНІ ІГРИ')  # 🎮 СУЧaСНЕ ПРОГРАМУВАННЯ, МОБІЛЬНІ ПРИСТРОЇ ТА КОМП’ЮТЕРНІ ІГРИ «ІННОВАЦІЙНИЙ КАМПУС» - a = eng
@@ -669,6 +670,19 @@ def mess(message, btn1=None):
 
 		markup.add(btn1, btn2, row_width=1)
 		markup.add(btn3, btn4, row_width=2)
+
+		markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=2)
+		btn1 = types.KeyboardButton('📖 Кoнкурсні пропозиції') # 📖 КOнкурсні пропозиції - o = ENG
+		btn2 = types.KeyboardButton('⏱ Етапи вступнoї компанії') # ⏱ Етапи вступнOї компанії - o = ENG
+		btn3 = types.KeyboardButton('🧮 Poзрахунок конкурсного балу') # 🧮 РOзрахунок конкурсного балу - o = ENG
+		btn4 = types.KeyboardButton('🔎 Кiлькість місць') # i - eng
+		btn5 = types.KeyboardButton('📄 Мoтиваційний лист') # 📄 МOтиваційні листи - o = ENG
+		btn6 = types.KeyboardButton('✉ Зразок заяви (друга вища)')  # 📄
+		btn7 = types.KeyboardButton("⬅ Назад") # ⬅ НазAд = eng
+		btn8 = types.KeyboardButton("⬅ На початок")
+
+
+		markup.add(btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8)
 
 		final_message = "Магістратура"
 
