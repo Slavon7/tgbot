@@ -371,7 +371,7 @@ def mess(message, btn1=None):
 
 		markup.add(btn1, btn2, btn3, btn4)
 
-		photo = open("../../Desktop/telegram_bot/media/dipplomniroboti.png", "rb")
+		photo = open("media/dipplomniroboti.png", "rb")
 		bot.send_photo(message.chat.id, photo)
 
 		final_message = "<b>Комп’ютерна інженерія  (Computer Engineering)</b> – це напрям, який об’єднує в собі частини електротехніки, комп’ютерних наук та програмної інженерії, що необхідні для проектування та розроблення комп’ютерних систем. "
@@ -602,7 +602,7 @@ def mess(message, btn1=None):
 
 		markup.add(btn1, btn2, btn3, btn4)
 
-		photo = open("../../Desktop/telegram_bot/media/dipplomniroboti.png", "rb")
+		photo = open("media/dipplomniroboti.png", "rb")
 		bot.send_photo(message.chat.id, photo)
 
 		final_message = "<b>Комп’ютерна інженерія  (Computer Engineering)</b> – це напрям, який об’єднує в собі частини електротехніки, комп’ютерних наук та програмної інженерії, що необхідні для проектування та розроблення комп’ютерних систем. "
@@ -1072,7 +1072,7 @@ def mess(message, btn1=None):
 
 		markup.add(btn1, btn2, btn3, btn4)
 
-		photo = open("../../Desktop/telegram_bot/media/dipplomniroboti.png", "rb")
+		photo = open("media/dipplomniroboti.png", "rb")
 		bot.send_photo(message.chat.id, photo)
 
 		final_message = "<b>Комп’ютерна інженерія  (Computer Engineering)</b> – це напрям, який об’єднує в собі частини електротехніки, комп’ютерних наук та програмної інженерії, що необхідні для проектування та розроблення комп’ютерних систем. "
